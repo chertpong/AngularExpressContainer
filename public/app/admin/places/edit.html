@@ -1,0 +1,126 @@
+<div class="md-body-1 form-body" style="padding: 20px 40px 10px 40px">
+    <md-content layout-padding id="admin-place-edit-container">
+        <div>
+            <form name="placeForm" ng-submit="isEditPage ? edit() : create()">
+                <div layout-gt-sm="column">
+                    <div layout="row" layout-align="center center">
+                        <img ng-src="{{place.thumbnail}}" style="width: 250px; height: 250px">
+                        <input type="file" upload-image="image">
+                    </div>
+                    <md-input-container class="md-block flex-100">
+                        <label>Name</label>
+                        <input type="text" ng-model="place.name">
+                    </md-input-container>
+                    <md-input-container class="md-block flex-100">
+                        <label>Type</label>
+                        <md-select ng-model="place.type">
+                            <md-option value="Culture">Culture</md-option>
+                            <md-option value="Landmark">Landmark</md-option>
+                            <md-option value="Service">Service</md-option>
+                            <md-option value="Restaurant">Restaurant</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Language</label>
+                        <md-select ng-model="place.descriptions[1].language">
+                            <md-option value="th">Thai</md-option>
+                            <md-option value="en">English</md-option>
+                            <md-option value="ch">Chinese</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Description (TH)</label>
+                        <textarea ng-model="place.descriptions[1].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Language</label>
+                        <md-select ng-model="place.descriptions[0].language">
+                            <md-option value="th">Thai</md-option>
+                            <md-option value="en">English</md-option>
+                            <md-option value="ch">Chinese</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Description (EN)</label>
+                        <textarea ng-model="place.descriptions[0].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Language</label>
+                        <md-select ng-model="place.descriptions[2].language">
+                            <md-option value="th">Thai</md-option>
+                            <md-option value="en">English</md-option>
+                            <md-option value="ch">Chinese</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Description (CH)</label>
+                        <textarea ng-model="place.descriptions[2].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Location - Lat</label>
+                    <input type="text" ng-model="place.location.lat">
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <label>Location - Lng</label>
+                    <input type="text" ng-model="place.location.lng">
+                </md-input-container>
+                <md-divider></md-divider>
+                    <md-subheader class="md-no-sticky">Contact</md-subheader>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Contact - name</label>
+                    <input type="text" ng-model="place.contact.name">
+                </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact - phone number</label>
+                        <input type="text" ng-model="place.contact.phoneNumber">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact - address</label>
+                        <input type="text" ng-model="place.contact.address">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact - website</label>
+                        <input type="text" ng-model="place.contact.website">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact - open time</label>
+                        <input type="text" ng-model="place.contact.openTime">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact - close time</label>
+                        <input type="text" ng-model="place.contact.closeTime">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact - working day</label>
+                        <md-autocomplete
+                                md-no-cache="false"
+                                md-selected-item="place.contact.workingDay"
+                                md-search-text="workingDaySearchText"
+                                md-items="item in workingDaySearch(workingDaySearchText)"
+                                md-item-text="item"
+                                md-min-length="0"
+                                placeholder="Working day">
+                            <md-item-template>
+                                <span md-highlight-text="workingDaySearchText" md-highlight-flags="^i">{{item}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                No states matching "{{workingDaySearchText}}" were found.
+                            </md-not-found>
+                        </md-autocomplete>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Contact - description</label>
+                        <textarea ng-model="place.contact.description" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-divider></md-divider>
+                    <div layout="row" layout-align="end center">
+                        <button type="submit" class="md-button md-raised md-primary"
+                                style="width:200px;color : rgb(49, 46, 46);" ng-disabled="!isSubmitEnabled"
+                        >{{isEditPage ? 'Edit' : 'Create'}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </md-content>
+</div>

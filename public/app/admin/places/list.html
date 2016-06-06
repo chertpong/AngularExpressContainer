@@ -1,0 +1,34 @@
+<h2>Places</h2>
+<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+    <md-input-container>
+        <label>Search by name</label>
+        <input ng-model="search.name">
+    </md-input-container>
+    <md-input-container>
+        <label>Search by type</label>
+        <input ng-model="search.type">
+    </md-input-container>
+</section>
+<div layout="row" layout-align="end center" layout-wrap="">
+    <md-button class="md-raised md-primary" ng-click="goCreate()">Create New Place </md-button>
+</div>
+
+<md-content>
+    <md-list flex>
+        <md-subheader class="md-no-sticky">Places name</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="place in places | filter:search" ng-click="null">
+            <div class="md-list-item-text" layout="row">
+                <div class="flex-80">
+                    <h3>{{ place.name }}</h3>
+                    <h4>{{ place.type }}</h4>
+                </div>
+               <div class="flex-20">
+                   <md-button class="md-raised md-primary" ng-click="goEdit(place._id)">Edit</md-button>
+                   <md-button class="md-raised md-warn" ng-click="delete(place)" ng-disabled="!isEnabledDeleteButton">
+                       Delete
+                   </md-button>
+               </div>
+            </div>
+        </md-list-item>
+    </md-list>
+</md-content>
