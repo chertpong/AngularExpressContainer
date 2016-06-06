@@ -29,5 +29,5 @@ config([
     $rootScope.loggedIn = localStorageService.get('token') ? true : false;
   })
   .constant('Config', {
-    backendUrl: 'http://localhost'
+    backendUrl: 'http://52.163.91.205:8000'
   });
