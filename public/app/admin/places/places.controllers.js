@@ -112,7 +112,7 @@ angular.module('myApp.admin', ['ngRoute'])
             var formData = new FormData();
             formData.append('image', $scope.image.file);
             $log.debug($scope.image.file);
-            return  $http
+            $http
               .post(Config.backendUrl+'/api/uploads/single',formData,{
                 headers:{
                   'X-ACCESS-TOKEN': localStorageService.get('token'),
@@ -120,10 +120,14 @@ angular.module('myApp.admin', ['ngRoute'])
                   transformRequest: angular.identity
                 }
               })
+              .then(function(response){
+                $log.debug('thumbnail.filePath',response.data.filePath);
+                $scope.place.thumbnail = response.data.filePath;
+                return response;
+              });
           }
         })
           .then(function(response){
-            $scope.place.thumbnail = response.filePath;
             var path = Config.backendUrl+'/api/places/'+$routeParams.id;
             $http
               .put(path,
@@ -178,6 +182,34 @@ angular.module('myApp.admin', ['ngRoute'])
 
               });
           })
+          .catch(function(err){
+            $scope.isSubmitEnabled = true;
+            var errorMessages = '';
+            var errors = [];
+            if(err.data.error.errors){
+              for(var a in err.data.error.errors){
+                errors.push(err.data.error.errors[a]);
+              }
+              errorMessages = errors
+                .map(function(e){
+                  return '['+e.name + ':' + e.message + ']';
+                })
+                .reduce(function(a,b){
+                  $log.debug(a,b);
+                  return a+' | '+b;
+                },'');
+            }
+            $log.debug('[!]',err.data.message);
+            $mdDialog.show(
+              $mdDialog.alert()
+                .parent(angular.element(document.getElementById('admin-place-edit-container')))
+                .clickOutsideToClose(true)
+                .title('Error!')
+                .textContent(err.data.message+'\n'+errorMessages)
+                .ariaLabel('Error Dialog')
+                .ok('Got it!')
+            );
+          });
 
       };
 
@@ -300,15 +332,20 @@ angular.module('myApp.admin', ['ngRoute'])
         var formData = new FormData();
         formData.append('image', $scope.image.file);
         $log.debug($scope.image.file);
-        $http.post(Config.backendUrl+'/api/uploads/single',formData,{
-          headers:{
-            'X-ACCESS-TOKEN': localStorageService.get('token'),
-            'CONTENT-TYPE': undefined,
-            transformRequest: angular.identity
-          }
-        })
+        $http
+          .post(Config.backendUrl+'/api/uploads/single',formData,{
+            headers:{
+              'X-ACCESS-TOKEN': localStorageService.get('token'),
+              'CONTENT-TYPE': undefined,
+              transformRequest: angular.identity
+            }
+          })
           .then(function(response){
-            $scope.place.thumbnail = response.filePath;
+            $log.debug('thumbnail.filePath',response.data.filePath);
+            $scope.place.thumbnail = response.data.filePath;
+            return response;
+          })
+          .then(function(response){
             var path = Config.backendUrl+'/api/places/';
             return $http
               .post(path,
