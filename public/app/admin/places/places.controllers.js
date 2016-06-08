@@ -123,7 +123,7 @@ angular.module('myApp.admin', ['ngRoute'])
               .then(function(response){
                 $log.debug('thumbnail.filePath',response.data.filePath);
                 $scope.place.thumbnail = Config.backendUrl+'/'+response.data.filePath;
-                return response;
+                return resolve(response);
               });
           }
         })
@@ -346,6 +346,7 @@ angular.module('myApp.admin', ['ngRoute'])
             return response;
           })
           .then(function(response){
+            $log.debug('post');
             var path = Config.backendUrl+'/api/places/';
             return $http
               .post(path,
