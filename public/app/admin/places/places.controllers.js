@@ -219,7 +219,50 @@ angular.module('myApp.admin', ['ngRoute'])
           description: null
         },
         "challenges" : [],
-        "questions": [],
+        "questions": [
+          {
+            descriptions:[
+              {content:'',language:'en'},
+              {content:'', language:'th'},
+              {content:'', language:'ch'}
+            ],
+            score: 10,
+            choices:[
+              {
+                correct: false,
+                description:[
+                  {content:'',language:'en'},
+                  {content:'', language:'th'},
+                  {content:'', language:'ch'}
+                ]
+              },
+              {
+                correct: false,
+                description:[
+                  {content:'',language:'en'},
+                  {content:'', language:'th'},
+                  {content:'', language:'ch'}
+                ]
+              },
+              {
+                correct: false,
+                description:[
+                  {content:'',language:'en'},
+                  {content:'', language:'th'},
+                  {content:'', language:'ch'}
+                ]
+              },
+              {
+                correct: false,
+                description:[
+                  {content:'',language:'en'},
+                  {content:'', language:'th'},
+                  {content:'', language:'ch'}
+                ]
+              }
+            ]
+          }
+        ],
         "thumbnail": undefined
       };
 

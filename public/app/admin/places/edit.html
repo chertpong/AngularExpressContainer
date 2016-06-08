@@ -22,7 +22,7 @@
                     </md-input-container>
                     <md-input-container>
                         <label>Language</label>
-                        <md-select ng-model="place.descriptions[1].language">
+                        <md-select ng-model="place.descriptions[1].language" disabled>
                             <md-option value="th">Thai</md-option>
                             <md-option value="en">English</md-option>
                             <md-option value="ch">Chinese</md-option>
@@ -34,7 +34,7 @@
                     </md-input-container>
                     <md-input-container>
                         <label>Language</label>
-                        <md-select ng-model="place.descriptions[0].language">
+                        <md-select ng-model="place.descriptions[0].language" disabled>
                             <md-option value="th">Thai</md-option>
                             <md-option value="en">English</md-option>
                             <md-option value="ch">Chinese</md-option>
@@ -46,7 +46,7 @@
                     </md-input-container>
                     <md-input-container>
                         <label>Language</label>
-                        <md-select ng-model="place.descriptions[2].language">
+                        <md-select ng-model="place.descriptions[2].language" disabled>
                             <md-option value="th">Thai</md-option>
                             <md-option value="en">English</md-option>
                             <md-option value="ch">Chinese</md-option>
@@ -114,6 +114,46 @@
                         <textarea ng-model="place.contact.description" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
                     </md-input-container>
                     <md-divider></md-divider>
+                    <h3>Game</h3>
+                    <h4>Descriptions</h4>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Question description (TH)</label>
+                        <textarea ng-model="place.questions[0].descriptions[1].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Question description (EN)</label>
+                        <textarea ng-model="place.questions[0].descriptions[0].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Question description (CH)</label>
+                        <textarea ng-model="place.questions[0].descriptions[2].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <md-divider></md-divider>
+                    <h4>Choices</h4>
+                    <div ng-repeat="choice in place.questions[0].choices">
+                        <h5>Choice {{$index + 1}}</h5>
+                        <md-input-container>
+                            <label>Language</label>
+                            <md-select ng-model="choice.correct">
+                                <md-option value="true">True</md-option>
+                                <md-option value="false">False</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <div ng-repeat="description in choice.description">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Choice description ({{description.language}})</label>
+                                <textarea ng-model="description.content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                            </md-input-container>
+                        </div>
+                        <md-divider></md-divider>
+                    </div>
+                    <h4>Score</h4>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Score</label>
+                        <textarea ng-model="place.questions[0].score" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    </md-input-container>
+
                     <div layout="row" layout-align="end center">
                         <button type="submit" class="md-button md-raised md-primary"
                                 style="width:200px;color : rgb(49, 46, 46);" ng-disabled="!isSubmitEnabled"
