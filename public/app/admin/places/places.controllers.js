@@ -123,6 +123,7 @@ angular.module('myApp.admin', ['ngRoute'])
           }
         })
           .then(function(response){
+            $scope.place.thumbnail = response.filePath;
             var path = Config.backendUrl+'/api/places/'+$routeParams.id;
             $http
               .put(path,
@@ -307,6 +308,7 @@ angular.module('myApp.admin', ['ngRoute'])
           }
         })
           .then(function(response){
+            $scope.place.thumbnail = response.filePath;
             var path = Config.backendUrl+'/api/places/';
             return $http
               .post(path,
