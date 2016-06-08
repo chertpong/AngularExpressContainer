@@ -122,7 +122,7 @@ angular.module('myApp.admin', ['ngRoute'])
               })
               .then(function(response){
                 $log.debug('thumbnail.filePath',response.data.filePath);
-                $scope.place.thumbnail = response.data.filePath;
+                $scope.place.thumbnail = Config.backendUrl+response.data.filePath;
                 return response;
               });
           }
@@ -342,7 +342,7 @@ angular.module('myApp.admin', ['ngRoute'])
           })
           .then(function(response){
             $log.debug('thumbnail.filePath',response.data.filePath);
-            $scope.place.thumbnail = response.data.filePath;
+            $scope.place.thumbnail = Config.backendUrl+response.data.filePath;
             return response;
           })
           .then(function(response){
