@@ -217,14 +217,14 @@ angular.module('myApp.admin', ['ngRoute'])
           "lng": null
         },
         "contact": {
-          name: null,
+          name: '-',
           phoneNumber: null,
           address: null,
           website:null,
           openTime: null,
           closeTime: null,
-          workingDay: null,
-          description: null
+          workingDay: 'Everyday',
+          description: '-'
         },
         "challenges" : [],
         "questions": [
@@ -234,7 +234,7 @@ angular.module('myApp.admin', ['ngRoute'])
               {content:'', language:'th'},
               {content:'', language:'ch'}
             ],
-            score: 10,
+            score: 1,
             choices:[
               {
                 correct: false,

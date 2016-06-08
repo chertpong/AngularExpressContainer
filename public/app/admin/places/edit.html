@@ -21,57 +21,19 @@
                             <md-option value="Shopping">Shopping</md-option>
                         </md-select>
                     </md-input-container>
-                    <md-input-container>
-                        <label>Language</label>
-                        <md-select ng-model="place.descriptions[1].language" disabled>
-                            <md-option value="th">Thai</md-option>
-                            <md-option value="en">English</md-option>
-                            <md-option value="ch">Chinese</md-option>
-                        </md-select>
+                    <md-input-container class="md-block">
+                        <label>Location - Lat</label>
+                        <input type="text" ng-model="place.location.lat">
                     </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Description (TH)</label>
-                        <textarea ng-model="place.descriptions[1].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                    <md-input-container md-no-float class="md-block">
+                        <label>Location - Lng</label>
+                        <input type="text" ng-model="place.location.lng">
                     </md-input-container>
-                    <md-input-container>
-                        <label>Language</label>
-                        <md-select ng-model="place.descriptions[0].language" disabled>
-                            <md-option value="th">Thai</md-option>
-                            <md-option value="en">English</md-option>
-                            <md-option value="ch">Chinese</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Description (EN)</label>
-                        <textarea ng-model="place.descriptions[0].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Language</label>
-                        <md-select ng-model="place.descriptions[2].language" disabled>
-                            <md-option value="th">Thai</md-option>
-                            <md-option value="en">English</md-option>
-                            <md-option value="ch">Chinese</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Description (CH)</label>
-                        <textarea ng-model="place.descriptions[2].content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
-                    </md-input-container>
-
-                <md-input-container class="md-block">
-                    <label>Location - Lat</label>
-                    <input type="text" ng-model="place.location.lat">
-                </md-input-container>
-                <md-input-container md-no-float class="md-block">
-                    <label>Location - Lng</label>
-                    <input type="text" ng-model="place.location.lng">
-                </md-input-container>
-                <md-divider></md-divider>
-                    <md-subheader class="md-no-sticky">Contact</md-subheader>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Contact - name</label>
-                    <input type="text" ng-model="place.contact.name">
-                </md-input-container>
+                    <h3>Contact</h3>
+                    <!--<md-input-container class="md-block" flex-gt-sm>-->
+                        <!--<label>Contact - name</label>-->
+                        <!--<input type="text" ng-model="place.contact.name">-->
+                    <!--</md-input-container>-->
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Contact - phone number</label>
                         <input type="text" ng-model="place.contact.phoneNumber">
@@ -110,10 +72,26 @@
                             </md-not-found>
                         </md-autocomplete>
                     </md-input-container>
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Contact - description</label>
-                        <textarea ng-model="place.contact.description" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
-                    </md-input-container>
+                    <!--<md-input-container class="md-block" flex-gt-sm>-->
+                        <!--<label>Contact - description</label>-->
+                        <!--<textarea ng-model="place.contact.description" md-maxlength="2000" rows="10" md-select-on-focus></textarea>-->
+                    <!--</md-input-container>-->
+                    <md-divider></md-divider>
+                    <h4>Description</h4>
+                    <div ng-repeat="description in place.descriptions">
+                        <md-input-container>
+                            <label>Language</label>
+                            <md-select ng-model="description.language" disabled>
+                                <md-option value="en">English</md-option>
+                                <md-option value="th">Thai</md-option>
+                                <md-option value="ch">Chinese</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Description ({{description.language}})</label>
+                            <textarea ng-model="description.content" md-maxlength="2000" rows="10" md-select-on-focus></textarea>
+                        </md-input-container>
+                    </div>
                     <md-divider></md-divider>
                     <h3>Game</h3>
                     <h4>Descriptions</h4>
