@@ -104,72 +104,80 @@ angular.module('myApp.admin', ['ngRoute'])
       });
       $scope.edit = function(){
         $scope.isSubmitEnabled = false;
-
-        var formData = new FormData();
-        formData.append('image', $scope.image.file);
-        $log.debug($scope.image.file);
-        $http.post(Config.backendUrl+'/api/uploads/single',formData,{
-          headers:{
-            'X-ACCESS-TOKEN': localStorageService.get('token'),
-            'CONTENT-TYPE': undefined,
-            transformRequest: angular.identity
+        new Promise(function(resolve,reject){
+          if($scope.image.file === null){
+            return resolve(true);
           }
-        }).then(function(response){
-          var path = Config.backendUrl+'/api/places/'+$routeParams.id;
-          $http
-            .put(path,
-              $scope.place,
-              {
+          else {
+            var formData = new FormData();
+            formData.append('image', $scope.image.file);
+            $log.debug($scope.image.file);
+            return  $http
+              .post(Config.backendUrl+'/api/uploads/single',formData,{
                 headers:{
-                  'X-ACCESS-TOKEN': localStorageService.get('token')
+                  'X-ACCESS-TOKEN': localStorageService.get('token'),
+                  'CONTENT-TYPE': undefined,
+                  transformRequest: angular.identity
                 }
               })
-            .then(function(response) {
-              $scope.isSubmitEnabled = true;
-              $scope.place = response.data;
-              $log.debug('[+] edit place: ', $scope.place.name);
-
-              $mdDialog.show(
-                $mdDialog.alert()
-                  .parent(angular.element(document.getElementById('admin-place-edit-container')))
-                  .clickOutsideToClose(true)
-                  .title('Updated!')
-                  .textContent('Updated: Success')
-                  .ariaLabel('Success Dialog')
-                  .ok('Got it!')
-              );
-            })
-            .catch(function(err) {
-              $scope.isSubmitEnabled = true;
-              var errorMessages = '';
-              var errors = [];
-              if(err.data.error.errors){
-                for(var a in err.data.error.errors){
-                  errors.push(err.data.error.errors[a]);
-                }
-                errorMessages = errors
-                  .map(function(e){
-                    return '['+e.name + ':' + e.message + ']';
-                  })
-                  .reduce(function(a,b){
-                    $log.debug(a,b);
-                    return a+' | '+b;
-                  },'');
-              }
-              $log.debug('[!]',err.data.message);
-              $mdDialog.show(
-                $mdDialog.alert()
-                  .parent(angular.element(document.getElementById('admin-place-edit-container')))
-                  .clickOutsideToClose(true)
-                  .title('Error!')
-                  .textContent(err.data.message+'\n'+errorMessages)
-                  .ariaLabel('Error Dialog')
-                  .ok('Got it!')
-              );
-
-            });
+          }
         })
-       
+          .then(function(response){
+            var path = Config.backendUrl+'/api/places/'+$routeParams.id;
+            $http
+              .put(path,
+                $scope.place,
+                {
+                  headers:{
+                    'X-ACCESS-TOKEN': localStorageService.get('token')
+                  }
+                })
+              .then(function(response) {
+                $scope.isSubmitEnabled = true;
+                $scope.place = response.data;
+                $log.debug('[+] edit place: ', $scope.place.name);
+
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.getElementById('admin-place-edit-container')))
+                    .clickOutsideToClose(true)
+                    .title('Updated!')
+                    .textContent('Updated: Success')
+                    .ariaLabel('Success Dialog')
+                    .ok('Got it!')
+                );
+              })
+              .catch(function(err) {
+                $scope.isSubmitEnabled = true;
+                var errorMessages = '';
+                var errors = [];
+                if(err.data.error.errors){
+                  for(var a in err.data.error.errors){
+                    errors.push(err.data.error.errors[a]);
+                  }
+                  errorMessages = errors
+                    .map(function(e){
+                      return '['+e.name + ':' + e.message + ']';
+                    })
+                    .reduce(function(a,b){
+                      $log.debug(a,b);
+                      return a+' | '+b;
+                    },'');
+                }
+                $log.debug('[!]',err.data.message);
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.getElementById('admin-place-edit-container')))
+                    .clickOutsideToClose(true)
+                    .title('Error!')
+                    .textContent(err.data.message+'\n'+errorMessages)
+                    .ariaLabel('Error Dialog')
+                    .ok('Got it!')
+                );
+
+              });
+          })
+
       };
 
       var loadData = function(){
@@ -301,28 +309,33 @@ angular.module('myApp.admin', ['ngRoute'])
           .then(function(response){
             var path = Config.backendUrl+'/api/places/';
             return $http
-                    .post(path,
-                      $scope.place,
-                      {
-                        headers:{
-                          'X-ACCESS-TOKEN': localStorageService.get('token')
-                        }
-                      })
+              .post(path,
+                $scope.place,
+                {
+                  headers:{
+                    'X-ACCESS-TOKEN': localStorageService.get('token')
+                  }
+                })
           })
           .then(function(response) {
             $scope.isSubmitEnabled = true;
             $scope.place = response.data;
             $log.debug('[+] create place: ', $scope.place.name);
 
-            $mdDialog.show(
-              $mdDialog.alert()
-                .parent(angular.element(document.getElementById('admin-place-edit-container')))
-                .clickOutsideToClose(true)
-                .title('Created!')
-                .textContent('Created: Success')
-                .ariaLabel('Success Dialog')
-                .ok('Got it!')
-            );
+            $mdDialog
+              .show(
+                $mdDialog.alert()
+                  .parent(angular.element(document.getElementById('admin-place-edit-container')))
+                  .clickOutsideToClose(true)
+                  .title('Created!')
+                  .textContent('Created: Success')
+                  .ariaLabel('Success Dialog')
+                  .ok('Got it!')
+              );
+            // $timeout(function(){
+            //   $log.debug('timeout: redirect to ','/#!/admin/places/'+$scope.place._id);
+            //   $location.path($scope.place._id);
+            // },3000);
           })
           .catch(function(err) {
             $scope.isSubmitEnabled = true;
