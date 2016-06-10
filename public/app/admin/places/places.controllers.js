@@ -1,6 +1,6 @@
 'use strict';
 //TODO : Refactor this spaghetti
-angular.module('myApp.admin', ['ngRoute'])
+angular.module('myApp.admin.places', ['ngRoute'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('/admin/places', {

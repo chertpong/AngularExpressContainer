@@ -7,7 +7,8 @@ angular.module('myApp', [
   'LocalStorageModule',
   'myApp.home',
   'myApp.auth',
-  'myApp.admin',
+  'myApp.admin.places',
+  'myApp.admin.events',
   'myApp.version'
 ]).
 config([
