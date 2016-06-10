@@ -1,0 +1,43 @@
+<div class="md-body-1 form-body" style="padding: 20px 40px 10px 40px">
+    <md-content layout-padding id="admin-events-edit-container">
+        <div>
+            <form name="placeForm" ng-submit="isEditPage ? edit() : create()">
+                <div layout-gt-sm="column">
+                    <h4>Start</h4>
+                    <md-datepicker md-placeholder="start date" ng-model="event.startTime.date"></md-datepicker>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Start time (Hour) | 0-24</label>
+                        <input type="number" ng-model="event.startTime.hr">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Start time (Minute) | 0-60</label>
+                        <input type="number" ng-model="event.startTime.min">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Start time (Second) | 0-60</label>
+                        <input type="number" ng-model="event.startTime.s">
+                    </md-input-container>
+                    <h4>Finish</h4>
+                    <md-datepicker md-placeholder="finish date" ng-model="event.finishTime.date"></md-datepicker>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Finish time (Hour) | 0-24</label>
+                        <input type="number" ng-model="event.finishTime.hr">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Finish time (Minute) | 0-60</label>
+                        <input type="number" ng-model="event.finishTime.min">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Finish time (Second)  | 0-60</label>
+                        <input type="number" ng-model="event.finishTime.s">
+                    </md-input-container>
+                    <div layout="row" layout-align="end center">
+                        <button type="submit" class="md-button md-raised md-primary"
+                                style="width:200px;color : rgb(49, 46, 46);" ng-disabled="!isSubmitEnabled"
+                        >{{isEditPage ? 'Edit' : 'Create'}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </md-content>
+</div>
